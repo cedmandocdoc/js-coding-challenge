@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import Modal from "react-modal";
-import CountrySelect, { DEFAULT_COUNTRY } from "../country/CountrySelect";
-import LanguageSelect, { DEFAULT_LANGUAGE } from "../language/LanguageSelect";
-import CurrencySelect, { DEFAULT_CURRENCY } from "../currency/CurrencySelect";
+import CountrySelect from "../country/CountrySelect";
+import LanguageSelect from "../language/LanguageSelect";
+import CurrencySelect from "../currency/CurrencySelect";
+import { DEFAULT_COUNTRY, DEFAULT_CURRENCY, DEFAULT_LANGUAGE } from "../../constants";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE

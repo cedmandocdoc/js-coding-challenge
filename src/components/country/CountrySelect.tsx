@@ -1,6 +1,7 @@
 import countries from "i18n-iso-countries";
 import Select from "react-select";
 import { CountrySelectOption } from "./CountrySelectOption";
+import { DEFAULT_COUNTRY } from "../../constants";
 
 // Register countries
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -13,12 +14,6 @@ interface CountrySelectProps {
   value?: any;
   onChange?: (value: any) => void;
 }
-
-// Constants
-export const DEFAULT_COUNTRY = {
-  code: "US",
-  name: "United States of America",
-};
 
 // Component
 export const CountrySelect = ({
