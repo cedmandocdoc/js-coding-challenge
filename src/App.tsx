@@ -1,5 +1,6 @@
 import SettingsSelector from "./components/settings/SettingsSelector";
 import Modal from "react-modal";
+import './index.css'
 
 Modal.setAppElement("#root");
 
