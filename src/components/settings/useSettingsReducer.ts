@@ -1,16 +1,10 @@
 import { useReducer } from "react";
-import { Country } from "../../models";
+import { Country, Settings } from "../../models";
 import {
   DEFAULT_COUNTRY,
   DEFAULT_CURRENCY,
   DEFAULT_LANGUAGE,
 } from "../../constants";
-
-type Settings = {
-  country: Country;
-  currency: string;
-  language: string;
-};
 
 type State = {
   data: Settings;

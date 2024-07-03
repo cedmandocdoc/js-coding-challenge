@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { FC, memo, useCallback, useRef, useState } from "react";
 import Modal from "react-modal";
 import CountrySelect from "../country/CountrySelect";
 import LanguageSelect from "../language/LanguageSelect";
 import CurrencySelect from "../currency/CurrencySelect";
 import useSettingsReducer, { ActionTypes } from "./useSettingsReducer";
-import { Country } from "../../models";
+import { Country, Settings } from "../../models";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -95,54 +95,72 @@ FURTHER DETAILS
 - Downgrading to React 17 is not an option 😉
 --- [TASK] --- */
 
-// Component
-const SettingsSelector = (): JSX.Element => {
-  // States
-  const [modalIsOpen, setModalIsOpen] = React.useState<any>(false);
-  const [state, dispatch] = useSettingsReducer()
-  const { data, sandbox } = state
+type SettingsButtonProps = {
+  data: Settings;
+  onClick: () => void;
+};
 
+const SettingsButton: FC<SettingsButtonProps> = memo(({ data, onClick }) => {
   // Render Counter
   const counter = useRef(0);
 
+  // Increase render count.
+  counter.current++;
+
+  // Log current render count.
+  console.log("Render count of button is: " + counter.current);
+
+  /* Button */
+  return (
+    <button onClick={onClick}>
+      {data.country.name} - ({data.currency} - {data.language})
+    </button>
+  );
+});
+
+// Component
+const SettingsSelector: FC = () => {
+  // States
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [state, dispatch] = useSettingsReducer();
+  const { data, sandbox } = state;
+
   // Actions
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     setModalIsOpen(true);
-  };
-  const handleClose = () => {
+  }, []);
+
+  const handleClose = useCallback(() => {
     setModalIsOpen(false);
-  };
+  }, []);
 
-  const onCountryChange = (country: Country) => dispatch({ type: ActionTypes.CHANGE_COUNTRY, payload: country })
+  const onCountryChange = useCallback(
+    (country: Country) =>
+      dispatch({ type: ActionTypes.CHANGE_COUNTRY, payload: country }),
+    [dispatch]
+  );
 
-  const onCurrencyChange = (currency: string) => dispatch({ type: ActionTypes.CHANGE_CURRENCY, payload: currency })
+  const onCurrencyChange = useCallback(
+    (currency: string) =>
+      dispatch({ type: ActionTypes.CHANGE_CURRENCY, payload: currency }),
+    [dispatch]
+  );
 
-  const onLanguageChange = (language: string) => dispatch({ type: ActionTypes.CHANGE_LANGUAGE, payload: language })
+  const onLanguageChange = useCallback(
+    (language: string) =>
+      dispatch({ type: ActionTypes.CHANGE_LANGUAGE, payload: language }),
+    [dispatch]
+  );
 
   const onClickSave = () => {
-    dispatch({ type: ActionTypes.SAVE })
+    dispatch({ type: ActionTypes.SAVE });
     setModalIsOpen(false);
-  }
-
-  const button = () => {
-    // Increase render count.
-    counter.current++;
-
-    // Log current render count.
-    console.log("Render count of button is: " + counter.current);
-
-    /* Button */
-    return (
-      <button onClick={handleOpen}>
-        {data.country.name} - ({data.currency} - {data.language})
-      </button>
-    );
   };
 
   // Render
   return (
     <div>
-      {button()}
+      <SettingsButton data={data} onClick={handleOpen} />
 
       {/* Modal */}
       <Modal isOpen={modalIsOpen}>
@@ -156,7 +174,10 @@ const SettingsSelector = (): JSX.Element => {
         <CurrencySelect value={sandbox.currency} onChange={onCurrencyChange} />
 
         {/* Language */}
-        <LanguageSelect language={sandbox.language} onChange={onLanguageChange} />
+        <LanguageSelect
+          language={sandbox.language}
+          onChange={onLanguageChange}
+        />
 
         {/* Close button */}
         <button onClick={handleClose}>Close</button>
