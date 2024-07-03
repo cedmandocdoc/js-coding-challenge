@@ -1,18 +1,19 @@
+import { FC } from "react";
 import { data as CurrencyData } from "currency-codes";
 import Select from "react-select";
 import { DEFAULT_CURRENCY } from "../../constants";
 
 // Props
-interface CurrencySelectProps {
+type Props =  {
   value?: string;
   onChange?: (currency: string) => void;
 }
 
 // Component
-const CurrencySelect = ({
+const CurrencySelect: FC<Props> = ({
   value = DEFAULT_CURRENCY,
   onChange,
-}: CurrencySelectProps) => {
+}) => {
   // Prepare data
   const data = CurrencyData.map(({ code, currency }) => {
     return {

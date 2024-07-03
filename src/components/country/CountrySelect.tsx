@@ -1,7 +1,9 @@
+import { FC } from "react";
 import countries from "i18n-iso-countries";
 import Select from "react-select";
 import { CountrySelectOption } from "./CountrySelectOption";
 import { DEFAULT_COUNTRY } from "../../constants";
+import { Country } from "../../models";
 
 // Register countries
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -10,16 +12,16 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 // Please replace "any" with a proper type in this file (and where it is needed).
 
 // Props
-interface CountrySelectProps {
-  value?: any;
-  onChange?: (value: any) => void;
+type Props = {
+  value?: Country;
+  onChange?: (value: Country) => void;
 }
 
 // Component
-export const CountrySelect = ({
+const CountrySelect: FC<Props> = ({
   value = DEFAULT_COUNTRY,
   onChange,
-}: CountrySelectProps) => {
+}) => {
   // Prepare Data
   const data = Object.entries(
     countries.getNames("en", { select: "official" })

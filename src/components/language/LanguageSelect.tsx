@@ -1,19 +1,20 @@
+import { FC } from "react";
 import ISO_6391_Languages from "iso-639-1";
 
 import Select from "react-select";
 import { DEFAULT_LANGUAGE } from "../../constants";
 
 // Props
-interface LanguageSelectProps {
+type Props = {
   language?: string;
   onChange?: (language: string) => void;
-}
+};
 
 // Component
-const LanguageSelect = ({
+const LanguageSelect: FC<Props> = ({
   language = DEFAULT_LANGUAGE,
   onChange,
-}: LanguageSelectProps) => {
+}) => {
   // Prepare data
   const data = ISO_6391_Languages.getLanguages([
     "en",
