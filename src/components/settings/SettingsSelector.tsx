@@ -5,6 +5,7 @@ import LanguageSelect from "../language/LanguageSelect";
 import CurrencySelect from "../currency/CurrencySelect";
 import useSettingsReducer, { ActionTypes } from "./useSettingsReducer";
 import { Country, Settings } from "../../models";
+import Flag from "../flag/Flag";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -112,8 +113,11 @@ const SettingsButton: FC<SettingsButtonProps> = memo(({ data, onClick }) => {
 
   /* Button */
   return (
-    <button onClick={onClick}>
-      {data.country.name} - ({data.currency} - {data.language})
+    <button onClick={onClick} className="flex gap-2 items-center">
+      <Flag country={data.country} /> 
+      <span>
+        {data.country.name} - ({data.currency} - {data.language})
+      </span>
     </button>
   );
 });
