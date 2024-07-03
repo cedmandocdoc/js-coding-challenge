@@ -32,6 +32,7 @@ const initial: State = {
     currency: DEFAULT_CURRENCY,
     language: DEFAULT_LANGUAGE,
   },
+  // sandbox means for unsaved changes
   sandbox: {
     country: DEFAULT_COUNTRY,
     currency: DEFAULT_CURRENCY,
@@ -55,6 +56,10 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+/**
+ * Provides the settings data via state.data.
+ * Unsaved changes is being populated on state.sandbox
+ */
 const useSettingsReducer = () => useReducer(reducer, initial);
 
 export default useSettingsReducer;
