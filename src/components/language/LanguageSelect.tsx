@@ -41,7 +41,7 @@ const LanguageSelect = ({
           options={data}
           defaultValue={defaultValue}
           onChange={(newValue) => {
-            onChange(newValue.value);
+            newValue && onChange?.(newValue.value);
           }}
         />
       </label>
