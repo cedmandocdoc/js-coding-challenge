@@ -29,12 +29,13 @@ const LanguageSelect: FC<Props> = ({
       label: name + " - " + nativeName,
     };
   });
+
   const defaultValue = { value: language, label: language };
 
   // Render
   return (
     <div>
-      <label>
+      <label className="text-sm text-gray-800">
         Language
         <Select
           options={data}

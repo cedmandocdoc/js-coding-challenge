@@ -36,7 +36,7 @@ const CountrySelect: FC<Props> = ({
   // Render
   return (
     <div>
-      <label>
+      <label className="text-sm text-gray-800">
         Country
         <Select
           options={data}

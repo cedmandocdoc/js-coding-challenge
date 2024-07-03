@@ -1,4 +1,11 @@
-import React, { FC, memo, useCallback, useRef, useState } from "react";
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Modal from "react-modal";
 import CountrySelect from "../country/CountrySelect";
 import LanguageSelect from "../language/LanguageSelect";
@@ -6,6 +13,7 @@ import CurrencySelect from "../currency/CurrencySelect";
 import useSettingsReducer, { ActionTypes } from "./useSettingsReducer";
 import { Country, Settings } from "../../models";
 import Flag from "../flag/Flag";
+import SettingsButtonLabel from "./SettingsButtonLabel";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -113,11 +121,12 @@ const SettingsButton: FC<SettingsButtonProps> = memo(({ data, onClick }) => {
 
   /* Button */
   return (
-    <button onClick={onClick} className="flex gap-2 items-center">
-      <Flag country={data.country} /> 
-      <span>
-        {data.country.name} - ({data.currency} - {data.language})
-      </span>
+    <button
+      onClick={onClick}
+      className="flex gap-2 items-center shadow-md py-3 px-4 bg-white rounded-lg text-gray-800 hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg transition outline-none "
+    >
+      <Flag country={data.country} />
+      <SettingsButtonLabel {...data} />
     </button>
   );
 });
@@ -163,11 +172,15 @@ const SettingsSelector: FC = () => {
 
   // Render
   return (
-    <div>
+    <div className="w-dvh h-dvh bg-slate-50 flex items-center justify-center">
       <SettingsButton data={data} onClick={handleOpen} />
 
       {/* Modal */}
-      <Modal isOpen={modalIsOpen}>
+      <Modal
+        isOpen={modalIsOpen}
+        className="bg-white w-[calc(100%-2rem)] md:w-[600px] flex flex-col gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg p-4 md:p-6 rounded-lg"
+        overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-slate-50"
+      >
         {/* Header */}
         <h2>Select your region, currency and language.</h2>
 
@@ -183,9 +196,11 @@ const SettingsSelector: FC = () => {
           onChange={onLanguageChange}
         />
 
-        {/* Close button */}
-        <button onClick={handleClose}>Close</button>
-        <button onClick={onClickSave}>Save</button>
+        {/* Action buttons */}
+        <div className="flex gap-2 mt-4 justify-end">
+          <button onClick={handleClose} className="px-3 h-8 rounded hover:bg-gray-100">Close</button>
+          <button onClick={onClickSave} className="px-3 h-8 rounded bg-blue-500 hover:bg-blue-600 text-white text-sm">Save</button>
+        </div>
       </Modal>
     </div>
   );
