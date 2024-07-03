@@ -3,7 +3,8 @@ import Modal from "react-modal";
 import CountrySelect from "../country/CountrySelect";
 import LanguageSelect from "../language/LanguageSelect";
 import CurrencySelect from "../currency/CurrencySelect";
-import { DEFAULT_COUNTRY, DEFAULT_CURRENCY, DEFAULT_LANGUAGE } from "../../constants";
+import useSettingsReducer, { ActionTypes } from "./useSettingsReducer";
+import { Country } from "../../models";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -98,9 +99,8 @@ FURTHER DETAILS
 const SettingsSelector = (): JSX.Element => {
   // States
   const [modalIsOpen, setModalIsOpen] = React.useState<any>(false);
-  const [selectedCountry, setCountry] = React.useState<any>(DEFAULT_COUNTRY);
-  const [selectedCurrency, setCurrency] = React.useState<any>(DEFAULT_CURRENCY);
-  const [selectedLanguage, setLanguage] = React.useState<any>(DEFAULT_LANGUAGE);
+  const [state, dispatch] = useSettingsReducer()
+  const { data, sandbox } = state
 
   // Render Counter
   const counter = useRef(0);
@@ -113,6 +113,17 @@ const SettingsSelector = (): JSX.Element => {
     setModalIsOpen(false);
   };
 
+  const onCountryChange = (country: Country) => dispatch({ type: ActionTypes.CHANGE_COUNTRY, payload: country })
+
+  const onCurrencyChange = (currency: string) => dispatch({ type: ActionTypes.CHANGE_CURRENCY, payload: currency })
+
+  const onLanguageChange = (language: string) => dispatch({ type: ActionTypes.CHANGE_LANGUAGE, payload: language })
+
+  const onClickSave = () => {
+    dispatch({ type: ActionTypes.SAVE })
+    setModalIsOpen(false);
+  }
+
   const button = () => {
     // Increase render count.
     counter.current++;
@@ -123,7 +134,7 @@ const SettingsSelector = (): JSX.Element => {
     /* Button */
     return (
       <button onClick={handleOpen}>
-        {selectedCountry.name} - ({selectedCurrency} - {selectedLanguage})
+        {data.country.name} - ({data.currency} - {data.language})
       </button>
     );
   };
@@ -139,16 +150,17 @@ const SettingsSelector = (): JSX.Element => {
         <h2>Select your region, currency and language.</h2>
 
         {/* Country */}
-        <CountrySelect value={selectedCountry} onChange={setCountry} />
+        <CountrySelect value={sandbox.country} onChange={onCountryChange} />
 
         {/* Currency */}
-        <CurrencySelect value={selectedCurrency} onChange={setCurrency} />
+        <CurrencySelect value={sandbox.currency} onChange={onCurrencyChange} />
 
         {/* Language */}
-        <LanguageSelect language={selectedLanguage} onChange={setLanguage} />
+        <LanguageSelect language={sandbox.language} onChange={onLanguageChange} />
 
         {/* Close button */}
         <button onClick={handleClose}>Close</button>
+        <button onClick={onClickSave}>Save</button>
       </Modal>
     </div>
   );

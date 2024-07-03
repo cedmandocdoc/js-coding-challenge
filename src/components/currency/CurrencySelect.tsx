@@ -29,7 +29,7 @@ const CurrencySelect = ({
         Currency
         <Select
           options={data}
-          defaultValue={defaultValue}
+          value={defaultValue}
           onChange={(newValue) => {
             newValue && onChange?.(newValue.value);
           }}
