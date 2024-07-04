@@ -198,7 +198,7 @@ const SettingsSelector: FC = () => {
 
         {/* Action buttons */}
         <div className="flex gap-2 mt-4 justify-end">
-          <button onClick={handleClose} className="px-3 h-8 rounded hover:bg-gray-100">Close</button>
+          <button onClick={handleClose} className="px-3 h-8 rounded hover:bg-gray-100">Cancel</button>
           <button onClick={onClickSave} className="px-3 h-8 rounded bg-blue-500 hover:bg-blue-600 text-white text-sm">Save</button>
         </div>
       </Modal>
