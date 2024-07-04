@@ -1,7 +1,8 @@
 import { FC } from "react";
 import countries from "i18n-iso-countries";
 import Select from "react-select";
-import { CountrySelectOption } from "./CountrySelectOption";
+import CountrySelectOption from "./CountrySelectOption";
+import CountrySelectInput from "./CountrySelectInput";
 import { DEFAULT_COUNTRY } from "../../constants";
 import { Country } from "../../models";
 
@@ -40,7 +41,7 @@ const CountrySelect: FC<Props> = ({
         Country
         <Select
           options={data}
-          components={{ Option: CountrySelectOption }}
+          components={{ Option: CountrySelectOption, Control: CountrySelectInput,  }}
           value={defaultValue}
           onChange={(newValue) => {
             newValue && onChange?.(newValue.value);

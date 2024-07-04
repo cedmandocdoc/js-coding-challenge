@@ -22,7 +22,7 @@ FURTHER DETAILS
 --- [TASK] --- */
 
 // Component
-export const CountrySelectOption = (
+const CountrySelectOption = (
   props: OptionProps<{ value: Country; label: string }, false>
 ) => {
   return (
@@ -36,3 +36,5 @@ export const CountrySelectOption = (
     </div>
   );
 };
+
+export default CountrySelectOption
