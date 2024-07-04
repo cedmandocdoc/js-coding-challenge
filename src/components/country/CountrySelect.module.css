@@ -1,0 +1,9 @@
+.countrySelectInput__flag {
+  margin-left: 12px;
+}
+
+.countrySelectOption__container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

@@ -26,7 +26,7 @@ const CurrencySelect: FC<Props> = ({
   // Render
   return (
     <div>
-      <label className="text-sm text-gray-800">
+      <label className="select__label">
         Currency
         <Select
           options={data}

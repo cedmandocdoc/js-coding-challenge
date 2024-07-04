@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Country } from "../../models";
+import styles from './Flag.module.css'
 
 type Props = {
   country: Country;
@@ -8,7 +9,7 @@ type Props = {
 
 const Flag: FC<Props> = ({ country, className = '' }) => (
   <img
-    className={`w-5 object-cover ${className}`}
+    className={`${styles.flag} ${className}`}
     src={`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${country.code}.svg`}
     alt={country.name}
   />

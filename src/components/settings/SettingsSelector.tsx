@@ -1,10 +1,8 @@
-import React, {
+import {
   FC,
   memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
+  useCallback, useRef,
+  useState
 } from "react";
 import Modal from "react-modal";
 import CountrySelect from "../country/CountrySelect";
@@ -14,6 +12,7 @@ import useSettingsReducer, { ActionTypes } from "./useSettingsReducer";
 import { Country, Settings } from "../../models";
 import Flag from "../flag/Flag";
 import SettingsButtonLabel from "./SettingsButtonLabel";
+import styles from './SettingsSelector.module.css'
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -123,7 +122,7 @@ const SettingsButton: FC<SettingsButtonProps> = memo(({ data, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex gap-2 items-center shadow-md py-3 px-4 bg-white rounded-lg text-gray-800 hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg transition outline-none "
+      className={styles.settingsSelector__button}
     >
       <Flag country={data.country} />
       <SettingsButtonLabel {...data} />
@@ -172,14 +171,14 @@ const SettingsSelector: FC = () => {
 
   // Render
   return (
-    <div className="w-dvh h-dvh bg-slate-50 flex items-center justify-center">
+    <div className={styles.settingsSelector}>
       <SettingsButton data={data} onClick={handleOpen} />
 
       {/* Modal */}
       <Modal
         isOpen={modalIsOpen}
-        className="bg-white w-[calc(100%-2rem)] md:w-[600px] flex flex-col gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg p-4 md:p-6 rounded-lg"
-        overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-slate-50"
+        className={styles.settingsSelector__modal}
+        overlayClassName={styles.settingsSelector__modal__overlay}
       >
         {/* Header */}
         <h2>Select your region, currency and language.</h2>
@@ -197,9 +196,9 @@ const SettingsSelector: FC = () => {
         />
 
         {/* Action buttons */}
-        <div className="flex gap-2 mt-4 justify-end">
-          <button onClick={handleClose} className="px-3 h-8 rounded hover:bg-gray-100">Cancel</button>
-          <button onClick={onClickSave} className="px-3 h-8 rounded bg-blue-500 hover:bg-blue-600 text-white text-sm">Save</button>
+        <div className={styles.settingsSelector__actions}>
+          <button onClick={handleClose} className={styles.settingsSelector__actions__cancel}>Cancel</button>
+          <button onClick={onClickSave} className={styles.settingsSelector__actions__save}>Save</button>
         </div>
       </Modal>
     </div>

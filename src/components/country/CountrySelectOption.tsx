@@ -1,6 +1,7 @@
 import { OptionProps, components } from "react-select";
 import { Country } from "../../models";
 import Flag from "../flag/Flag";
+import styles from './CountrySelect.module.css'
 
 /* --- [TASK] ---
 Country flags in select field
@@ -28,7 +29,7 @@ const CountrySelectOption = (
   return (
     <div>
       <components.Option {...props}>
-        <div className="flex gap-2 items-center">
+        <div className={styles.countrySelectOption__container}>
           <Flag country={props.data.value} />
           <span>{props.data.label}</span>
         </div>
